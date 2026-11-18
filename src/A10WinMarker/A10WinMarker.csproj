@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- The mod assembly loaded by the game: core sources + game adapter + marker UI, in one DLL.
+       Game DLLs are referenced from $(Sts2ManagedDir) (set in local.props, not checked in)
+       and are never copied to the output.
+       The a10mark dev-console command (A10MarkConsoleCmd.cs) is wrapped in #if DEBUG, so a
+       Release build does not contain it (spec 11, acceptance 11). -->
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <AssemblyName>A10WinMarker</AssemblyName>
+    <RootNamespace>A10WinMarker</RootNamespace>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <Target Name="CheckGameDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(Sts2ManagedDir)' == ''"
+           Text="Sts2ManagedDir is not set. Copy local.props.example to local.props and point it at the folder holding sts2.dll." />
+    <Error Condition="'$(Sts2ManagedDir)' != '' And !Exists('$(Sts2ManagedDir)/sts2.dll')"
+           Text="sts2.dll not found in Sts2ManagedDir ($(Sts2ManagedDir))." />
+  </Target>
+
+  <ItemGroup>
+    <Compile Include="../A10WinMarker.Core/**/*.cs" Exclude="../A10WinMarker.Core/obj/**;../A10WinMarker.Core/bin/**" LinkBase="Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="sts2" HintPath="$(Sts2ManagedDir)/sts2.dll" Private="false" />
+    <Reference Include="GodotSharp" HintPath="$(Sts2ManagedDir)/GodotSharp.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(Sts2ManagedDir)/0Harmony.dll" Private="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="A10WinMarker.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>
