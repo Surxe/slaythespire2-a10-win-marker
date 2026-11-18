@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/A10WinMarker.Core/A10WinMarker.Core.csproj" />
+    <Project Path="src/A10WinMarker/A10WinMarker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/A10WinMarker.Core.Tests/A10WinMarker.Core.Tests.csproj" />
+  </Folder>
+</Solution>
