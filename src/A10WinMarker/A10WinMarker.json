@@ -1,0 +1,11 @@
+{
+  "id": "A10WinMarker",
+  "name": "A10 Win Marker",
+  "author": "Surxe",
+  "description": "Marks each character, multiplayer and Blitz once you have won at the top ascension. Click the trophy on the ascension panel to mark past wins.",
+  "version": "v0.1.0",
+  "has_pck": false,
+  "has_dll": true,
+  "dependencies": [],
+  "affects_gameplay": false
+}
